@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from __future__ import unicode_literals
 import urlparse
+import cloudinary
 import dj_database_url
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -38,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.staticfiles',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -83,6 +85,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
+STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
 CACHES = {
     'default': {
         'BACKEND': 'django_bmemcached.memcached.BMemcached',
@@ -94,14 +105,21 @@ CACHES = {
     }
 }
 
-redis_url = urlparse.urlparse(os.environ.get('REDISCLOUD_URL'))
+REDIS_URL = urlparse.urlparse(os.environ.get('REDISCLOUD_URL'))
+
+CLOUDINARY_URL = urlparse.urlparse(os.environ.get('CLOUDINARY_URL'))
+cloudinary.config(
+    cloud_name=CLOUDINARY_URL.cloud_name,
+    api_key=CLOUDINARY_URL.api_key,
+    api_secret=CLOUDINARY_URL.api_secret
+)
 
 SESSION_ENGINE = 'redis_sessions.session'
 
-SESSION_REDIS_HOST = redis_url.hostname
-SESSION_REDIS_PORT = redis_url.port
+SESSION_REDIS_HOST = REDIS_URL.hostname
+SESSION_REDIS_PORT = REDIS_URL.port
 SESSION_REDIS_DB = 0
-SESSION_REDIS_PASSWORD = redis_url.password
+SESSION_REDIS_PASSWORD = REDIS_URL.password
 SESSION_REDIS_PREFIX = 'session'
 
 try:
