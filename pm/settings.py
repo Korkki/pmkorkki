@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from __future__ import unicode_literals
 import dj_database_url
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -66,9 +67,9 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pl'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Warsaw'
 
 USE_I18N = True
 
@@ -86,3 +87,13 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+try:
+    from local_settings import *
+    try:
+        INSTALLED_APPS += LOCAL_INSTALLED_APPS
+        MIDDLEWARE_CLASSES += LOCAL_MIDDLEWARE_CLASSES
+    except NameError:
+        pass
+except ImportError:
+    pass
