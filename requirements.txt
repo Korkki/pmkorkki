@@ -9,4 +9,4 @@ python-binary-memcached
 django-bmemcached
 redis
 django-redis-sessions
-whitenoise
+cloudinary
