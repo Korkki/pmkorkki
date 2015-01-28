@@ -5,3 +5,7 @@ django-toolbelt==0.0.1
 gunicorn
 psycopg2
 static3
+python-binary-memcached
+django-bmemcached
+redis
+django-redis-sessions

@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from __future__ import unicode_literals
+import urlparse
 import dj_database_url
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -41,6 +42,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -48,6 +50,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
 ROOT_URLCONF = 'pm.urls'
@@ -98,6 +101,16 @@ CACHES = {
             }
     }
 }
+
+redis_url = urlparse.urlparse(os.environ.get('REDISCLOUD_URL'))
+
+SESSION_ENGINE = 'redis_sessions.session'
+
+SESSION_REDIS_HOST = redis_url.hostname
+SESSION_REDIS_PORT = redis_url.port
+SESSION_REDIS_DB = 0
+SESSION_REDIS_PASSWORD = redis_url.password
+SESSION_REDIS_PREFIX = 'session'
 
 try:
     from local_settings import *
