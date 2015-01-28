@@ -91,6 +91,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
 CACHES = {
     'default': {
         'BACKEND': 'django_bmemcached.memcached.BMemcached',
