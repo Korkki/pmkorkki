@@ -10,8 +10,6 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from __future__ import unicode_literals
-import urlparse
-import cloudinary
 import dj_database_url
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -91,34 +89,3 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django_bmemcached.memcached.BMemcached',
-        'LOCATION': os.environ.get('MEMCACHEDCLOUD_SERVERS').split(','),
-        'OPTIONS': {
-            'username': os.environ.get('MEMCACHEDCLOUD_USERNAME'),
-            'password': os.environ.get('MEMCACHEDCLOUD_PASSWORD')
-        }
-    }
-}
-
-REDIS_URL = urlparse.urlparse(os.environ.get('REDISCLOUD_URL'))
-
-SESSION_ENGINE = 'redis_sessions.session'
-
-SESSION_REDIS_HOST = REDIS_URL.hostname
-SESSION_REDIS_PORT = REDIS_URL.port
-SESSION_REDIS_DB = 0
-SESSION_REDIS_PASSWORD = REDIS_URL.password
-SESSION_REDIS_PREFIX = 'session'
-
-try:
-    from local_settings import *
-    try:
-        INSTALLED_APPS += LOCAL_INSTALLED_APPS
-        MIDDLEWARE_CLASSES += LOCAL_MIDDLEWARE_CLASSES
-    except NameError:
-        pass
-except ImportError:
-    pass

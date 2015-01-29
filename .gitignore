@@ -58,4 +58,5 @@ target/
 .idea/
 
 local_settings.py
-/staticfiles/
+staticfiles/
+.ipynb_checkpoints/
