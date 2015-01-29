@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'p#eifjd7c5f06l-9*zbtu9ap1xaq$71bq2fucg)@!*qvb95=o4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = ['*']
 
@@ -106,13 +106,6 @@ CACHES = {
 }
 
 REDIS_URL = urlparse.urlparse(os.environ.get('REDISCLOUD_URL'))
-
-CLOUDINARY_URL = urlparse.urlparse(os.environ.get('CLOUDINARY_URL'))
-cloudinary.config(
-    cloud_name=CLOUDINARY_URL.cloud_name,
-    api_key=CLOUDINARY_URL.api_key,
-    api_secret=CLOUDINARY_URL.api_secret
-)
 
 SESSION_ENGINE = 'redis_sessions.session'
 
