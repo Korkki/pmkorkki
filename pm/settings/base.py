@@ -40,6 +40,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'mptt',
+    'rest_framework',
+    'rest_framework.authtoken',
     'todo',
 )
 
