@@ -1,7 +1,11 @@
 "use strict";
 var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
-    concat = require('gulp-concat');
+    concat = require('gulp-concat'),
+    hash = require('gulp-hash'),
+    less = require('gulp-less'),
+    LessPluginCleanCSS = require("less-plugin-clean-css"),
+    cleancss = new LessPluginCleanCSS({advanced: true});
 
 gulp.task('scripts', function () {
     return gulp.src([
@@ -18,4 +22,12 @@ gulp.task('scripts', function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('default', ['scripts']);
+gulp.task('style', function () {
+    return gulp.src('static/style/main.less')
+        .pipe(less({
+            plugins: [cleancss]
+        }))
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('default', ['scripts', 'style']);

@@ -3,15 +3,45 @@
 <html data-ng-app="pmApp">
 <head lang="en">
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'main.css' %}"/>
     <title></title>
 </head>
 <body>
-<section data-ng-controller="TodoController"></section>
+<nav class="navbar navbar-inverse navbar-fixed-top" data-ng-controller="TopMenuController">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-ng-click="isCollapsed = !isCollapsed">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">PMKorkki</a>
+        </div>
+        <div class="collapse navbar-collapse" data-collapse="isCollapsed">
+            <ul class="nav navbar-nav">
+                <li><a href="#">Link</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="grid">
+<section class="todo" data-ng-controller="TodoController">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h2 class="panel-title">Todos</h2>
+        </div>
+        <div class="panel-body"></div>
+        <div class="panel-footer"></div>
+    </div>
+</section>
+</div>
 <script type="text/javascript">window['token'] = '{{ request.user.auth_token.key }}';</script>
 {% if debug %}
     <script type="text/javascript" src="{% static 'js/vendor/lodash.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/vendor/angular.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/vendor/restangular.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/vendor/ui-bootstrap-tpls-0.12.0.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/app/app.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/app/controllers.js' %}"></script>
 {% else %}

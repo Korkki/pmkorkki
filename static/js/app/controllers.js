@@ -1,10 +1,18 @@
 "use strict";
 
-var TodoController = function ($scope, Restangular) {
-    var items = Restangular.all('todo');
-    $scope.todos = items.getList().$object;
+var TopMenuController = function ($scope) {
+    $scope.isCollapsed = true;
 };
 
-TodoController.$inject =['$scope', 'Restangular'];
+var TodoController = function ($scope, Restangular) {
+    var items = Restangular.all('todo');
+    items.getList().then(function (items) {
+        $scope.todos =  items;
+    });
+};
 
+TopMenuController.$inject = ['$scope'];
+TodoController.$inject = ['$scope', 'Restangular'];
+
+pmApp.controller('TopMenuController', TopMenuController);
 pmApp.controller('TodoController', TodoController);

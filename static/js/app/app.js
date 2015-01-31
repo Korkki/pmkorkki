@@ -1,13 +1,24 @@
 "use strict";
 
 var pmApp = angular.module('pmApp', [
-    'restangular'
+    'restangular',
+    'ui.bootstrap'
 ]);
 
 var pmAppConfig = function (RestangularProvider) {
     RestangularProvider.setBaseUrl('/api');
     RestangularProvider.setRequestSuffix('/');
-    RestangularProvider.setDefaultHeaders({Authorization: 'Token c9d9884cedbb926678d3b7780e7bdd6735a9a242'});
+    RestangularProvider.setDefaultHeaders({Authorization: 'Token ' + window['token']});
+    RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
+        var extractedData;
+        if (operation === "getList") {
+            extractedData = data.results;
+            extractedData.meta = _.omit(data, 'results');
+        } else {
+            extractedData = data.data;
+        }
+        return extractedData;
+    });
 };
 
 pmAppConfig.$inject = ['RestangularProvider'];
