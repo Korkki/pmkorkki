@@ -10,3 +10,5 @@ django-bmemcached
 redis
 django-redis-sessions
 cloudinary
+djangorestframework
+PyYAML
