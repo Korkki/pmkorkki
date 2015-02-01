@@ -100,7 +100,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'dist'),
 )
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'  # test
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
 
 SITE_ID = 1
 
