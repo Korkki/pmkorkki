@@ -12,3 +12,4 @@ django-redis-sessions
 cloudinary
 djangorestframework
 PyYAML
+django-mptt
