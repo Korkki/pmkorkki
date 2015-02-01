@@ -2,6 +2,8 @@ from __future__ import unicode_literals
 import urlparse
 from .base import *
 
+ALLOWED_HOSTS = ['pmkorkki.herokuapp.com', 'localhost']
+
 CACHES = {
     'default': {
         'BACKEND': 'django_bmemcached.memcached.BMemcached',

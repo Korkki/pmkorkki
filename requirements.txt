@@ -13,3 +13,4 @@ cloudinary
 djangorestframework
 PyYAML
 django-mptt
+django-extensions
