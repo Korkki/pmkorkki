@@ -57,6 +57,5 @@ target/
 .idea/
 
 local_settings.py
-staticfiles/
 .ipynb_checkpoints/
 node_modules/
