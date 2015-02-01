@@ -14,3 +14,4 @@ djangorestframework
 PyYAML
 django-mptt
 django-extensions
+whitenoise
