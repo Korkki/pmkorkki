@@ -32,12 +32,26 @@
         <div class="panel-heading">
             <h2 class="panel-title">Todos</h2>
         </div>
-        <div class="panel-body"></div>
-        <div class="panel-footer"></div>
+        <ul class="list-group">
+            <li class="list-group-item" data-ng-repeat="item in todos" data-ng-class="{disabled: item.done}">
+                <a class="badge" href="#" data-ng-click="done($index, item.id)"><i class="fa fa-check"></i></a>
+                <a class="badge" href="#" data-ng-click="delItem($index, item.id)"><i class="fa fa-times"></i></a>
+                {% verbatim %}
+                <strong>{{ item.title }}</strong> - {{ item.content }}
+                {% endverbatim %}
+            </li>
+        </ul>
+        <div class="panel-footer">
+            <a href="#" data-ng-click="todoModal()" class="badge">+</a>
+        </div>
     </div>
 </section>
 </div>
-<script type="text/javascript">window['token'] = '{{ request.user.auth_token.key }}';</script>
+<script type="text/javascript">
+    window['token'] = '{{ request.user.auth_token.key }}';
+    window['templates'] = '{% static 'templates' %}';
+    window['user'] = {{ request.user.pk }};
+</script>
 {% if debug %}
     <script type="text/javascript" src="{% static 'js/vendor/lodash.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/vendor/angular.min.js' %}"></script>
